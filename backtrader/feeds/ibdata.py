@@ -201,7 +201,7 @@ class IBData(with_metaclass(MetaIBData, DataBase)):
         ('what', None),  # historical - what to show
         ('useRTH', False),  # historical - download only Regular Trading Hours
         ('qcheck', 0.5),  # timeout in seconds (float) to check for events
-        ('backfill_start', True),  # do backfilling at the start
+        ('backfill_start', False),  # do backfilling at the start
         ('backfill', True),  # do backfilling when reconnecting
         ('backfill_from', None),  # additional data source to do backfill from
         ('latethrough', False),  # let late samples through
@@ -261,6 +261,7 @@ class IBData(with_metaclass(MetaIBData, DataBase)):
         self.ib = self._store(**kwargs)
         self.precontract = self.parsecontract(self.p.dataname)
         self.pretradecontract = self.parsecontract(self.p.tradename)
+        print(f"IB Store Backfill: {self.p.backfill_start}")
 
     def setenvironment(self, env):
         '''Receives an environment (cerebro) and passes it over to the store it
